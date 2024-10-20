@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- KPIs Section -->
+    <div class="col-md-3 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Total Vehicles</h5>
+            <p class="display-6">120</p>
+            <span class="badge bg-success">+8 new this month</span>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Active Vehicles</h5>
+            <p class="display-6">110</p>
+            <span class="badge bg-warning">5 in maintenance</span>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Under Maintenance</h5>
+            <p class="display-6">10</p>
+            <span class="badge bg-danger">-2 delayed services</span>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Total Mileage (km)</h5>
+            <p class="display-6">350,000 km</p>
+            <span class="badge bg-success">+15,000 km this month</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Fleet Growth Bar Chart -->
+    <div class="col-md-8 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Fleet Usage Growth</h5>
+            <canvas id="fleetGrowthChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="col-md-4 mb-4">
+        <div class="card p-3 shadow-sm">
+            <h5>Recent Fleet Activity</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Vehicle #00356 - Maintenance completed - 1 hour ago</li>
+                <li class="list-group-item">Vehicle #00234 - Ordered - 2 days ago</li>
+                <li class="list-group-item">Vehicle #00421 - Tire Change Scheduled - 4 hours ago</li>
+                <li class="list-group-item">Vehicle #00378 - Maintenance delayed - 3 days ago</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Script for Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('fleetGrowthChart').getContext('2d');
+    const fleetGrowthChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [{
+                label: 'Fleet Usage (in km)',
+                data: [15000, 20000, 30000, 25000, 40000, 45000, 50000, 47000],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

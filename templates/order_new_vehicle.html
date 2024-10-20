@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Order a New Vehicle</h2>
+
+<div class="row">
+    {% for vehicle in vehicles %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="{{ vehicle.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ vehicle.name }}</h5>
+                <p class="card-text">
+                    <strong>Available for Rental</strong><br>
+                    <strong>Rental Durations:</strong> {{ vehicle.duration }} years
+                </p>
+                <a href="#" class="btn btn-success">Rent Now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+    

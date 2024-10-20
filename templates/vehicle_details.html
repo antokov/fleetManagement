@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- Vehicle Info Card -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card p-3 shadow-sm w-100">
+            <h5>{{ vehicle.name }} - Details</h5>
+            <p>
+                <strong>Kilometers:</strong> {{ vehicle.kilometers }} km<br>
+                <strong>Battery:</strong> {{ vehicle.battery }}%<br>
+                <strong>Next Service:</strong> {{ vehicle.next_service }}<br>
+                <strong>Last Service:</strong> {{ vehicle.last_service }}<br>
+                <strong>Insurance Expiry:</strong> {{ vehicle.insurance }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Vehicle Usage Chart -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card p-3 shadow-sm w-100">
+            <h5>Usage (Kilometers Driven)</h5>
+            <canvas id="vehicleUsageChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Driving Behavior Analysis -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card p-3 shadow-sm w-100">
+            <h5>Driving Behavior Analysis</h5>
+            <p><strong>Acceleration:</strong> Moderate</p>
+            <p><strong>Braking:</strong> Frequent Harsh Braking</p>
+            <p><strong>Speed Consistency:</strong> Maintains moderate speed</p>
+            <canvas id="drivingBehaviorChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Service History -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card p-3 shadow-sm w-100">
+            <h5>Service History</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">2024-05-10: Tire Replacement</li>
+                <li class="list-group-item">2024-02-25: Battery Check</li>
+                <li class="list-group-item">2023-11-18: General Maintenance</li>
+                <li class="list-group-item">2023-09-05: Software Update</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Script for Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Usage Chart
+    const usageCtx = document.getElementById('vehicleUsageChart').getContext('2d');
+    const vehicleUsageChart = new Chart(usageCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Kilometers Driven',
+                data: [1200, 1800, 1500, 2000, 1900, 1700, 2100],
+                fill: false,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Kilometers'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                }
+            }
+        }
+    });
+
+    // Driving Behavior Chart (Doughnut Chart)
+    const behaviorCtx = document.getElementById('drivingBehaviorChart').getContext('2d');
+    const drivingBehaviorChart = new Chart(behaviorCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Harsh Acceleration', 'Moderate Acceleration', 'Harsh Braking', 'Smooth Braking'],
+            datasets: [{
+                data: [30, 40, 20, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
